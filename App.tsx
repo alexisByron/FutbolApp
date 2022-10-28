@@ -8,30 +8,12 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {SafeAreaView, useColorScheme, View} from 'react-native';
+import React, { type PropsWithChildren } from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import HomeView from './src/Components/HomeLeague/HomeView';
+import Navigator from './src/Components/Navigator/Navigator';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <HomeView />
-    </SafeAreaView>
-  );
+  return <Navigator />;
 };
 
 export default App;
