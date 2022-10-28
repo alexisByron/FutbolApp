@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import ListLeagues from './ListLeagues';
+import ListLeagues from '../ListLeagues/ListLeagues';
 
 const HomeView = () => {
   return (

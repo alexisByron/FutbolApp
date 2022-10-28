@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Animated, Text } from 'react-native';
 
-export const MyImage = ({ thumbnailSource, source, style }: any) => {
+const AsyncImage = ({ thumbnailSource, source, style }: any) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onImageLoad = () => {
@@ -34,3 +34,5 @@ export const MyImage = ({ thumbnailSource, source, style }: any) => {
     </View>
   );
 };
+
+export default AsyncImage

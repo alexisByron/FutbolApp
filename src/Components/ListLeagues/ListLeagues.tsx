@@ -1,74 +1,13 @@
-import React, { useEffect, useState, type PropsWithChildren } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  FlatList,
-  TextInput,
-  Button,
-} from 'react-native';
-import { GetLeagues, GetLeaguesMock } from '../Api/leagues';
-import { Divider } from '@react-native-material/core';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View, Text, FlatList, TextInput } from 'react-native';
+import { GetLeagues, GetLeaguesMock } from '../../Api/Leagues/leagues';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { HStack } from '@react-native-material/core';
 import { Spacer } from 'react-native-flex-layout';
-import { MyImage } from '../myImage';
-
+import AsyncImage from '../../AsyncImage';
 import { useForm, Controller } from 'react-hook-form';
-
-interface Ifixtures {
-  events: boolean;
-  lineups: boolean;
-  statistics_fixtures: boolean;
-  statistics_players: boolean;
-}
-
-interface ISeasons {
-  year: number;
-  start: string;
-  end: string;
-  current: boolean;
-  coverage: {
-    fixtures: Ifixtures;
-    standings: boolean;
-    players: boolean;
-    top_scorers: boolean;
-    top_assists: boolean;
-    top_cards: boolean;
-    injuries: boolean;
-    predictions: boolean;
-    odds: boolean;
-  };
-}
-
-interface IResponse {
-  league: {
-    id: number;
-    name: string;
-    type: string;
-    logo: string;
-  };
-  country: {
-    name: string;
-    code: string | null;
-    flag: string | null;
-  };
-  seasons: Array<ISeasons>;
-}
-
-interface Ileague {
-  data: {
-    get: string;
-    parameters: never[];
-    errors: never[];
-    results: number;
-    paging: {
-      current: number;
-      total: number;
-    };
-    response: Array<IResponse>;
-  };
-}
+import { ILeague } from '../../Api/Leagues/Interfaces/Ileague';
+import { IResponse } from '../../Api/Leagues/Interfaces/IResponse';
 
 const ListLeagues = () => {
   const [Leagues, setLeagues] = useState<Array<IResponse>>([]);
@@ -85,8 +24,8 @@ const ListLeagues = () => {
       LeagueSearched: '',
     },
   });
-  const onSubmit = (data: any) => console.log(data);
-  const title: any = watch('LeagueSearched');
+
+  const LeagueSearchedValue: string = watch('LeagueSearched');
 
   useEffect(() => {
     setIsLoading(true);
@@ -94,16 +33,20 @@ const ListLeagues = () => {
   }, []);
 
   const getLeaguesApi = async () => {
-    const responseApi: Ileague = await GetLeaguesMock();
+    const responseApi: ILeague = await GetLeaguesMock();
     setLeagues(responseApi.data.response);
     setLeaguesFiltered(responseApi.data.response);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    const result = Leagues.filter((liga)=>liga.league.name.toLowerCase().includes(title.toLowerCase()))
+    const result = Leagues.filter(liga =>
+      liga.league.name
+        .toLowerCase()
+        .includes(LeagueSearchedValue.toLowerCase()),
+    );
     setLeaguesFiltered(result);
-  }, [title]);
+  }, [LeagueSearchedValue]);
 
   const ListItem = ({ item }: any) => (
     <HStack
@@ -122,7 +65,7 @@ const ListLeagues = () => {
         {item.league.name}
       </Text>
       <Spacer />
-      <MyImage
+      <AsyncImage
         thumbnailSource={{
           uri: item.league.logo,
         }}
@@ -183,7 +126,8 @@ const ListLeagues = () => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            placeholder="Busca una liga"
+            placeholder="Busca una liga...."
+            placeholderTextColor="white"
           />
         )}
         name="LeagueSearched"

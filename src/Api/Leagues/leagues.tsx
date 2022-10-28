@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Env } from '../Enviroment/Environment';
+import { Env } from '../../Enviroment/Environment';
+import { ILeague } from './Interfaces/Ileague';
 
 export const GetLeagues = () => {
   const options: any = {
@@ -14,61 +15,7 @@ export const GetLeagues = () => {
   return axios.request(options);
 };
 
-interface Ifixtures {
-  events: boolean;
-  lineups: boolean;
-  statistics_fixtures: boolean;
-  statistics_players: boolean;
-}
-
-interface ISeasons {
-  year: number;
-  start: string;
-  end: string;
-  current: boolean;
-  coverage: {
-    fixtures: Ifixtures;
-    standings: boolean;
-    players: boolean;
-    top_scorers: boolean;
-    top_assists: boolean;
-    top_cards: boolean;
-    injuries: boolean;
-    predictions: boolean;
-    odds: boolean;
-  };
-}
-
-interface IResponse {
-  league: {
-    id: number;
-    name: string;
-    type: string;
-    logo: string;
-  };
-  country: {
-    name: string;
-    code: string | null;
-    flag: string | null;
-  };
-  seasons: Array<ISeasons>;
-}
-
-interface Ileague {
-  data: {
-    get: string;
-    parameters: never[];
-    errors: never[];
-    results: number;
-    paging: {
-      current: number;
-      total: number;
-    };
-    response: Array<IResponse>;
-  };
-}
-
-const mockResponseLeagues: Ileague = {
+const mockResponseLeagues: ILeague = {
   data: {
     get: 'leagues',
     parameters: [],
@@ -120616,7 +120563,7 @@ const mockResponseLeagues: Ileague = {
   },
 };
 
-export const GetLeaguesMock: () => Promise<Ileague> = () =>
+export const GetLeaguesMock: () => Promise<ILeague> = () =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(mockResponseLeagues);

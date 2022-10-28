@@ -18,7 +18,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import HomeView from './src/HomeLeague/HomeView';
+import HomeView from './src/Components/HomeLeague/HomeView';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
