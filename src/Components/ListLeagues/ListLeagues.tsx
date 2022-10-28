@@ -116,18 +116,18 @@ const ListLeagues = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={{
-              backgroundColor: 'gray',
+              backgroundColor: 'rgba(128,128,128, 0.2)',
               height: 50,
               padding: 20,
               margin: 20,
               borderRadius: 50,
-              color: 'white',
+              color: 'black',
             }}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             placeholder="Busca una liga...."
-            placeholderTextColor="white"
+            placeholderTextColor="black"
           />
         )}
         name="LeagueSearched"
