@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, FlatList, TextInput } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { GetLeagues, GetLeaguesMock } from '../../Api/Leagues/leagues';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { HStack } from '@react-native-material/core';
@@ -8,11 +15,31 @@ import AsyncImage from '../../AsyncImage';
 import { useForm, Controller } from 'react-hook-form';
 import { ILeague } from '../../Api/Leagues/Interfaces/Ileague';
 import { IResponse } from '../../Api/Leagues/Interfaces/IResponse';
+import { LeaguesSelectedContext } from '../../Context/LeagueSelected';
 
-const ListLeagues = () => {
+interface IListItem {
+  index: number;
+  item: IResponse;
+}
+
+interface ILeague2 {
+  id: number;
+  name: string;
+  type: string;
+  logo: string;
+}
+
+interface ITest {
+  league: ILeague2;
+  setLeague: React.Dispatch<React.SetStateAction<ILeague2>>;
+}
+
+const ListLeagues = ({ navigation }: any) => {
   const [Leagues, setLeagues] = useState<Array<IResponse>>([]);
   const [LeaguesFiltered, setLeaguesFiltered] = useState<Array<IResponse>>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { setLeague } = React.useContext(LeaguesSelectedContext) as ITest;
 
   const {
     control,
@@ -28,7 +55,6 @@ const ListLeagues = () => {
   const LeagueSearchedValue: string = watch('LeagueSearched');
 
   useEffect(() => {
-    setIsLoading(true);
     getLeaguesApi();
   }, []);
 
@@ -48,62 +74,80 @@ const ListLeagues = () => {
     setLeaguesFiltered(result);
   }, [LeagueSearchedValue]);
 
-  const ListItem = ({ item }: any) => (
-    <HStack
-      m={4}
-      spacing={6}
-      style={{ marginRight: 20, marginLeft: 20, height: 70 }}>
-      <Text
-        style={{
-          textAlign: 'center',
-          alignSelf: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlignVertical: 'center',
-          alignContent: 'center',
-        }}>
-        {item.league.name}
-      </Text>
-      <Spacer />
-      <AsyncImage
-        thumbnailSource={{
-          uri: item.league.logo,
-        }}
-        source={{ uri: item.league.logo }}
-      />
-    </HStack>
-  );
+  interface ILeague2 {
+    id: number;
+    name: string;
+    type: string;
+    logo: string;
+  }
+
+  const changeLeagueSelected = (item: ILeague2) => {
+    setLeague(item);
+    navigation.navigate('Home');
+  };
+
+  const ListItem = ({ item,index }: IListItem) => {
+    return (
+      <TouchableOpacity onPress={() => changeLeagueSelected(item.league)} key={index}>
+        <HStack
+          m={4}
+          spacing={6}
+          style={{ marginRight: 20, marginLeft: 20, height: 70 }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlignVertical: 'center',
+              alignContent: 'center',
+            }}>
+            {item.league.name}
+          </Text>
+          <Spacer />
+          <AsyncImage
+            thumbnailSource={{
+              uri: item.league.logo,
+            }}
+            source={{ uri: item.league.logo }}
+          />
+        </HStack>
+      </TouchableOpacity>
+    );
+  };
 
   const LoadingElement = () => (
     <SkeletonPlaceholder>
-      <SkeletonPlaceholder.Item
-        marginLeft={20}
-        flexDirection="row"
-        marginBottom={20}>
-        <SkeletonPlaceholder.Item>
-          <SkeletonPlaceholder.Item marginTop={20} width={250} height={20} />
-        </SkeletonPlaceholder.Item>
-
+      <View style={{ paddingLeft: 20, paddingRight: 20 }}>
         <SkeletonPlaceholder.Item
-          width={60}
-          height={60}
+          marginTop={20}
+          width={'100%'}
+          height={50}
           borderRadius={50}
-          marginLeft={40}
         />
-      </SkeletonPlaceholder.Item>
+        {Array(9)
+          .fill('a')
+          .map(({element,index}: any) => (
+            <View style={{ flexDirection: 'row', marginTop: 20 }} key={index}>
+              <SkeletonPlaceholder.Item
+                marginTop={20}
+                width={250}
+                height={20}
+              />
+              <SkeletonPlaceholder.Item
+                width={60}
+                height={60}
+                borderRadius={50}
+                marginLeft={40}
+              />
+            </View>
+          ))}
+      </View>
     </SkeletonPlaceholder>
   );
 
   return isLoading ? (
-    <ScrollView style={{ height: '100%' }}>
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
-      <LoadingElement />
+    <ScrollView style={{ height: '100%',marginBottom: 50 }}>
       <LoadingElement />
     </ScrollView>
   ) : (
@@ -135,7 +179,7 @@ const ListLeagues = () => {
       <FlatList
         data={LeaguesFiltered}
         renderItem={ListItem}
-        style={{ height: '100%' }}
+        style={{ height: '100%',marginBottom: 50 }}
       />
     </>
   );
