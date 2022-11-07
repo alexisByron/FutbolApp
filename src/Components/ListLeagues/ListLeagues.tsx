@@ -102,7 +102,7 @@ const ListLeagues = ({ navigation }: any) => {
               textAlignVertical: 'center',
               alignContent: 'center',
             }}>
-            {item.league.name}
+            {item.league.name}, {item.country.name}
           </Text>
           <Spacer />
           <AsyncImage
@@ -161,7 +161,7 @@ const ListLeagues = ({ navigation }: any) => {
           <TextInput
             style={{
               backgroundColor: 'rgba(128,128,128, 0.2)',
-              height: 50,
+              height: 55,
               padding: 20,
               margin: 20,
               borderRadius: 50,

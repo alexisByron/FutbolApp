@@ -69,11 +69,11 @@ const HomeView = ({ navigation }: IHome) => {
 
   const ItemTeam = ({ item }: any) => (
     <Surface
-      elevation={2}
-      category="medium"
+      elevation={9}
+      category="large"
       style={{
-        width: 180,
-        height: 180,
+        width: 157,
+        height: 201,
       }}
       key={item.team.id}>
       <View style={{ marginTop: 10 }}>
@@ -103,7 +103,7 @@ const HomeView = ({ navigation }: IHome) => {
 
   const SkeletonTeam = () => (
     <SkeletonPlaceholder>
-      <SkeletonPlaceholder.Item width={180} height={180} />
+      <SkeletonPlaceholder.Item width={157} height={201} />
     </SkeletonPlaceholder>
   );
 
@@ -119,7 +119,7 @@ const HomeView = ({ navigation }: IHome) => {
           borderRadius: 50,
           paddingLeft: 5,
           paddingRight: 5,
-          marginBottom:10
+          marginBottom: 10,
         }}>
         {refresImage != undefined ? (
           <HStack
@@ -154,10 +154,10 @@ const HomeView = ({ navigation }: IHome) => {
           <></>
         )}
       </TouchableOpacity>
-      <FlatGrid
+        <FlatGrid
         fixed
-        itemDimension={180}
-        data={teamsIsLoading ? Array(9).fill('a') : teamsByLeague.response}
+        itemDimension={157}
+        data={teamsIsLoading ? Array(6).fill('a') : teamsByLeague.response}
         renderItem={({ item }) => {
           return teamsIsLoading ? <SkeletonTeam /> : <ItemTeam item={item} />;
         }}

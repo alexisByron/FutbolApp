@@ -14,9 +14,7 @@ interface ITest {
 
 export const LeaguesSelectedContext = React.createContext<ITest | null>(null);
 
-const LeagueSelectedProvider: React.FC<React.ReactNode> = ({
-  children,
-}: any) => {
+const LeagueSelectedProvider: any = ({ children }: any) => {
   const [league, setLeague] = useState<ILeague>({
     id: 4,
     name: 'Euro Championship',
