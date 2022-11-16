@@ -12,7 +12,7 @@ interface ITest {
   setLeague: React.Dispatch<React.SetStateAction<ILeague>>;
 }
 
-export const LeaguesSelectedContext = React.createContext<ITest | null>(null);
+export const LeaguesSelectedContext = createContext<ITest | null>(null);
 
 const LeagueSelectedProvider: any = ({ children }: any) => {
   const [league, setLeague] = useState<ILeague>({

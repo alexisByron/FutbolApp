@@ -34,7 +34,15 @@ interface ITest {
   setLeague: React.Dispatch<React.SetStateAction<ILeague2>>;
 }
 
-const ListLeagues = ({ navigation }: any) => {
+interface INavigation {
+  navigate: (page: string) => {};
+}
+
+interface IListLeagues {
+  navigation: INavigation;
+}
+
+const ListLeagues = ({ navigation }: IListLeagues) => {
   const [Leagues, setLeagues] = useState<Array<IResponse>>([]);
   const [LeaguesFiltered, setLeaguesFiltered] = useState<Array<IResponse>>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -86,9 +94,11 @@ const ListLeagues = ({ navigation }: any) => {
     navigation.navigate('Home');
   };
 
-  const ListItem = ({ item,index }: IListItem) => {
+  const ListItem = ({ item, index }: IListItem) => {
     return (
-      <TouchableOpacity onPress={() => changeLeagueSelected(item.league)} key={index}>
+      <TouchableOpacity
+        onPress={() => changeLeagueSelected(item.league)}
+        key={index}>
         <HStack
           m={4}
           spacing={6}
@@ -105,12 +115,7 @@ const ListLeagues = ({ navigation }: any) => {
             {item.league.name}, {item.country.name}
           </Text>
           <Spacer />
-          <AsyncImage
-            thumbnailSource={{
-              uri: item.league.logo,
-            }}
-            source={{ uri: item.league.logo }}
-          />
+          <AsyncImage style={{}} source={{ uri: item.league.logo }} />
         </HStack>
       </TouchableOpacity>
     );
@@ -127,7 +132,7 @@ const ListLeagues = ({ navigation }: any) => {
         />
         {Array(9)
           .fill('a')
-          .map(({element,index}: any) => (
+          .map(({ element, index }: { element: String; index: number }) => (
             <View style={{ flexDirection: 'row', marginTop: 20 }} key={index}>
               <SkeletonPlaceholder.Item
                 marginTop={20}
@@ -147,7 +152,7 @@ const ListLeagues = ({ navigation }: any) => {
   );
 
   return isLoading ? (
-    <ScrollView style={{ height: '100%',marginBottom: 50 }}>
+    <ScrollView style={{ height: '100%', marginBottom: 50 }}>
       <LoadingElement />
     </ScrollView>
   ) : (
@@ -179,7 +184,7 @@ const ListLeagues = ({ navigation }: any) => {
       <FlatList
         data={LeaguesFiltered}
         renderItem={ListItem}
-        style={{ height: '100%',marginBottom: 50 }}
+        style={{ height: '100%', marginBottom: 50 }}
       />
     </>
   );

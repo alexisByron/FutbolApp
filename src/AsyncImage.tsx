@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Animated } from 'react-native';
 
-const AsyncImage = ({ thumbnailSource, source, style }: any) => {
+interface ISource {
+  uri: string;
+}
+
+interface IAsyncImage {
+  source: ISource;
+  style: object;
+}
+
+const AsyncImage = ({ source, style }: IAsyncImage) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onImageLoad = () => {
