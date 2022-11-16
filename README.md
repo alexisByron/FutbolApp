@@ -9,9 +9,9 @@
 ### Fuente de datos : https://api-football-v1.p.rapidapi.com/v3
 
 ## Información para levantar proyecto
-
-## Node version  v15.9.0
-## tener xcode y android studio instalados
+-   Node version  v15.9.0
+-  Tener xcode y android studio instalados
+-  Registrarse en api y cambiar archivo src/Enviroment/env.json agregando credenciales de api, importante 🚨🚨
 
 ## Comandos:
 - npm install: instalar dependencias
