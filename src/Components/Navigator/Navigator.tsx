@@ -5,17 +5,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ListLeagues from '../ListLeagues/ListLeagues';
 import HomeView from '../HomeLeague/HomeView';
 
+import LeagueSelectedProvider from '../../Context/LeagueSelected';
 
 const Stack = createNativeStackNavigator();
 
 function Navigator() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeView} />
-        <Stack.Screen name="ListLeagues" component={ListLeagues} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <LeagueSelectedProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeView} />
+          <Stack.Screen name="ListLeagues" component={ListLeagues} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </LeagueSelectedProvider>
   );
 }
 
