@@ -16,8 +16,7 @@
 -  Registrarse en api y cambiar archivo src/Enviroment/env.json agregando credenciales de api, importante 🚨🚨
 
 ## Comandos levantar app:
-<pre><code>
-npm install
+<pre><code>npm install
 cd ios && pod install
 npm run ios/android
 </code></pre>
