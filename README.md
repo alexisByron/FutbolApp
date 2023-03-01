@@ -22,5 +22,4 @@ npm run ios/android
 </code></pre>
 
 ## Demo  Android e IOS
-![Grabación de pantalla 2022-11-16 a la(s) 00 40 55](https://user-images.githubusercontent.com/72414242/202078815-d23ba28a-cfc8-4a8e-a3fd-7b85144c2df1.gif)
-![Grabación de pantalla 2022-11-16 a la(s) 00 38 41](https://user-images.githubusercontent.com/72414242/202078819-8d11ffb9-a715-4e6c-b18c-05858796427f.gif)
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/72414242/222281432-6a0b1746-6175-4a20-bf52-153cb7db2eb7.gif)
